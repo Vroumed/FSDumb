@@ -9,7 +9,7 @@ ARG PLATFORM
 ARG BUILD_TYPE=Debug
 ENV NUGET_PACKAGES /cache/nuget
 RUN --mount=type=cache,target=/cache \
-dotnet publish --sc -c $BUILD_TYPE -r $PLATFORM --verbosity detailed -o /output V8ed
+dotnet publish --sc -c $BUILD_TYPE -r $PLATFORM --verbosity detailed -o /output FSDumb
 
 # Export build artifacts
 FROM scratch
