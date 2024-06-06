@@ -1,6 +1,6 @@
-﻿using Vroumed.FSDumb.Hardware.Representations.Modules.Element;
+﻿using Vroumed.FSDumb.Hardware.Modules;
 
-namespace Vroumed.FSDumb.Hardware.Representations.Modules
+namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 {
     public class Servos
     {

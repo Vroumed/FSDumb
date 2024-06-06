@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
-using Vroumed.FSDumb.Hardware.Representations.Modules.Element;
 using Iot.Device.Ws28xx.Esp32;
+using Vroumed.FSDumb.Hardware.Modules;
 
 namespace Vroumed.FSDumb.Hardware.Controllers
 {

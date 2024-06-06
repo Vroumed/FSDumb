@@ -1,19 +1,21 @@
 ﻿using System.Drawing;
 using Vroumed.FSDumb.Extensions;
 using Vroumed.FSDumb.Hardware.Controllers;
-using Vroumed.FSDumb.Hardware.Representations.Modules.Element;
+using Vroumed.FSDumb.Hardware.Modules;
+using Vroumed.FSDumb.Hardware.Representations.Modules;
 
-namespace Vroumed.FSDumb.Hardware.Representations.Modules
+namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 {
-    public class LEDs
+    public class LEDs : ILighting
     {
         public LED[] LedArray { get; set; } = new LED[12];
         private LedController _ledController;
+        public byte LightCount => 12;
 
         public LEDs()
         {
             _ledController = new LedController();
-            for (byte i = 0; i < 12; i++)
+            for (byte i = 0; i < LightCount; i++)
             {
                 LedArray[i] = new LED(_ledController) { Index = i };
             }
@@ -21,7 +23,7 @@ namespace Vroumed.FSDumb.Hardware.Representations.Modules
 
             this.Schedule(() =>
             {
-                for (byte i = 0; i < 12; i++)
+                for (byte i = 0; i < LightCount; i++)
                 {
                     LedArray[i].TurnOff();
                 }
@@ -45,6 +47,25 @@ namespace Vroumed.FSDumb.Hardware.Representations.Modules
         public void Commit()
         {
             _ledController.Commit();
+        }
+
+        public void SetLight(int lightIndex, Color color)
+        {
+            LedArray[lightIndex].SetColor(color);
+            Commit();
+        }
+
+        public void TurnOff()
+        {
+            for (byte i = 0; i < LightCount; i++)
+            {
+                LedArray[i].TurnOff();
+            }
+        }
+
+        public void Fill(Color color)
+        {
+            
         }
     }
 }

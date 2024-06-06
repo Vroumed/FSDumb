@@ -22,18 +22,27 @@
     <Compile Include="Context.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Hardware\Controllers\LedController.cs" />
-    <Compile Include="Hardware\Representations\HardwareAccessor.cs" />
-    <Compile Include="Hardware\Representations\Modules\Battery.cs" />
-    <Compile Include="Hardware\Representations\Modules\Buzzer.cs" />
-    <Compile Include="Hardware\Representations\Modules\Element\LED.cs" />
-    <Compile Include="Hardware\Representations\Modules\Element\Servo.cs" />
-    <Compile Include="Hardware\Representations\Modules\Element\Wheel.cs" />
-    <Compile Include="Hardware\Representations\Modules\LEDs.cs" />
-    <Compile Include="Hardware\Representations\Modules\LightSensor.cs" />
-    <Compile Include="Hardware\Representations\Modules\Servos.cs" />
-    <Compile Include="Hardware\Representations\Modules\TrackSensor.cs" />
-    <Compile Include="Hardware\Representations\Modules\UltrasonicSensor.cs" />
-    <Compile Include="Hardware\Representations\Modules\Wheels.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\FreenoveHardware.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Managers\MovementManager.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Managers\SensorManager.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Managers\VisionManager.cs" />
+    <Compile Include="Hardware\Representations\IHardwareAccessor.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\Battery.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\Buzzer.cs" />
+    <Compile Include="Hardware\Modules\LED.cs" />
+    <Compile Include="Hardware\Modules\Servo.cs" />
+    <Compile Include="Hardware\Modules\Wheel.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\LEDs.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\LightSensor.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\Servos.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\TrackSensor.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\UltrasonicSensor.cs" />
+    <Compile Include="Hardware\Platforms\Freenove\Modules\Wheels.cs" />
+    <Compile Include="Hardware\Representations\Modules\IBuzzer.cs" />
+    <Compile Include="Hardware\Representations\Modules\ILighting.cs" />
+    <Compile Include="Hardware\Representations\Modules\IMovement.cs" />
+    <Compile Include="Hardware\Representations\Modules\ISensors.cs" />
+    <Compile Include="Hardware\Representations\Modules\IVision.cs" />
     <Compile Include="Managers\Scheduler.cs" />
     <Compile Include="Managers\Sequence.cs" />
     <Compile Include="Program.cs" />
@@ -107,9 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.nfproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Hardware\Protocols\" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>

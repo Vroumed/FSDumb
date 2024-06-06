@@ -2,6 +2,7 @@
 using System.Threading;
 using nanoFramework.Hardware.Esp32;
 using nanoFramework.Runtime.Native;
+using Vroumed.FSDumb.Hardware.Platforms.Freenove;
 using Vroumed.FSDumb.Hardware.Representations;
 using Vroumed.FSDumb.Managers;
 
@@ -15,7 +16,7 @@ namespace Vroumed.FSDumb
         public float ElapsedFrameTime { get; private set; } = 0;
         public ulong Clock { get; set; }
         public Scheduler Scheduler { get; } = new Scheduler();
-        public HardwareAccessor HardwareAccessor { get; private set; }
+        public IHardwareAccessor HardwareAccessor { get; private set; }
         public event Action OnUpdate;
 
         public static Context Instance { get; private set; }
@@ -28,7 +29,7 @@ namespace Vroumed.FSDumb
             }
 
             Instance = new Context();
-            Instance.HardwareAccessor = new HardwareAccessor();
+            Instance.HardwareAccessor = new FreenoveHardware();
         }
 
         public static Sequence StartSequence()

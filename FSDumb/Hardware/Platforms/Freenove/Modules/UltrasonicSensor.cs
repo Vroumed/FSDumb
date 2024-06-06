@@ -1,4 +1,4 @@
-﻿namespace Vroumed.FSDumb.Hardware.Representations.Modules
+﻿namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 {
     public class UltrasonicSensor
     {

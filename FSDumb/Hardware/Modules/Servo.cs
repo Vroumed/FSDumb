@@ -1,4 +1,4 @@
-﻿namespace Vroumed.FSDumb.Hardware.Representations.Modules.Element
+﻿namespace Vroumed.FSDumb.Hardware.Modules
 {
     public class Servo
     {
