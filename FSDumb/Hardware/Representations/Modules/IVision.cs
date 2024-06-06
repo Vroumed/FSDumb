@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Vroumed.FSDumb.Hardware.Representations.Modules
+﻿namespace Vroumed.FSDumb.Hardware.Representations.Modules
 {
     public interface IVision
     {

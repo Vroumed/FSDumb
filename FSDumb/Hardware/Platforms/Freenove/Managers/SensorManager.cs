@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules;
+﻿using Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules;
 using Vroumed.FSDumb.Hardware.Representations.Modules;
 
 namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Managers

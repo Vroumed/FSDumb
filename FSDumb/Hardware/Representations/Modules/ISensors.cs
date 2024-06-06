@@ -1,6 +1,4 @@
-﻿using Vroumed.FSDumb.Hardware.Representations.Modules.Sensors;
-
-namespace Vroumed.FSDumb.Hardware.Representations.Modules
+﻿namespace Vroumed.FSDumb.Hardware.Representations.Modules
 {
     public interface ISensors
     {
