@@ -1,7 +1,12 @@
 using System;
-using System.Diagnostics;
-using System.Threading;
+using System.Collections;
 using System.Device.Gpio;
+using System.Device.Pwm;
+using System.Drawing;
+using System.Threading;
+using Iot.Device.Ws28xx.Esp32;
+using nanoFramework.Hardware.Esp32;
+using Vroumed.FSDumb.Hardware.Representations;
 
 namespace Vroumed.FSDumb
 {
@@ -9,7 +14,10 @@ namespace Vroumed.FSDumb
     {
         public static void Main()
         {
+            Context.StartContext();
             
+
+            Context.Instance.StartMainLoop();
         }
     }
 }
