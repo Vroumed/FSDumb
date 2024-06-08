@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Collections;
+using System.Threading;
 
 namespace Vroumed.FSDumb.Managers
 {
+
+    public enum ExecuteType
+    {
+        Scheduled,
+        Threaded,
+    }
     public class Sequence
     {
+        public ExecuteType ExecuteType { get; }
+        private bool _running = false;
+        private Thread _thread = null;
         public struct SequenceTask
         {
             public ushort Delay { get; init; }
@@ -12,6 +22,19 @@ namespace Vroumed.FSDumb.Managers
         }
 
         private readonly ArrayList _sequence = new ArrayList();
+
+        public Sequence(ExecuteType type)
+        {
+            ExecuteType = type;
+        }
+
+        public void Stop()
+        {
+            _running = false;
+            if (_thread != null)
+                _thread.Abort();
+        }
+
         public ushort CurrentDelay { get; private set; } = 0;
 
         public Sequence Delay(ushort offset)
@@ -35,7 +58,11 @@ namespace Vroumed.FSDumb.Managers
         {
             if (count <= 0)
             {
-                Schedule(Execute);
+                Schedule(() =>
+                {
+                    if (_running)
+                        Execute();
+                });
                 return this;
             }
             ushort delay = 0;
@@ -52,12 +79,39 @@ namespace Vroumed.FSDumb.Managers
             return this;
         }
 
+
         public void Execute()
         {
-            foreach (SequenceTask task in _sequence)
+            _running = true;
+            switch (ExecuteType)
             {
-                Context.Instance.Scheduler.Schedule(task.Action, task.Delay);
+                case ExecuteType.Scheduled:
+                    foreach (SequenceTask task in _sequence)
+                    {
+                        Context.Instance.Scheduler.Schedule(() =>
+                        {
+                            if (_running)
+                                task.Action.Invoke();
+                        }, task.Delay);
+                    }
+                    break;
+                case ExecuteType.Threaded:
+                    new Thread(() =>
+                    {
+                        ushort delay = 0;
+                        foreach (SequenceTask task in _sequence)
+                        {
+                            ushort diff = (ushort)(task.Delay - delay);
+                            delay += diff;
+                            Thread.Sleep(diff); 
+                            if (_running)
+                                task.Action.Invoke();
+                        }
+                        
+                    }).Start();
+                    break;
             }
+            
         }
     }
 }

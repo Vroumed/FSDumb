@@ -16,9 +16,16 @@
     <AssemblyName>FSDumb</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="Hardware\Controllers\MotorController.cs" />
+    <Compile Include="InternetConfiguration.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InternetConfiguration.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Hardware\Controllers\LedController.cs" />
@@ -43,6 +50,11 @@
     <Compile Include="Hardware\Representations\Modules\IMovement.cs" />
     <Compile Include="Hardware\Representations\Modules\ISensors.cs" />
     <Compile Include="Hardware\Representations\Modules\IVision.cs" />
+    <Compile Include="lib\BinaryPrimitives.cs" />
+    <Compile Include="lib\DelayHelper.cs" />
+    <Compile Include="lib\Enums\Modes.cs" />
+    <Compile Include="lib\Pca9685.cs" />
+    <Compile Include="lib\Pca9685PwmChannel.cs" />
     <Compile Include="Managers\Scheduler.cs" />
     <Compile Include="Managers\Sequence.cs" />
     <Compile Include="Program.cs" />
@@ -95,6 +107,9 @@
     <Reference Include="System.Device.Pwm">
       <HintPath>..\packages\nanoFramework.System.Device.Pwm.1.1.10\lib\System.Device.Pwm.dll</HintPath>
     </Reference>
+    <Reference Include="System.Device.Wifi">
+      <HintPath>..\packages\nanoFramework.System.Device.Wifi.1.5.85\lib\System.Device.Wifi.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Streams">
       <HintPath>..\packages\nanoFramework.System.IO.Streams.1.1.59\lib\System.IO.Streams.dll</HintPath>
     </Reference>
@@ -112,10 +127,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="InternetConfiguration.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>InternetConfiguration.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.nfproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Bindable\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>

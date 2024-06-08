@@ -1,8 +1,10 @@
 ﻿using nanoFramework.Hardware.Esp32;
 using System.Device.Pwm;
+using System.Drawing;
 using System.Threading;
 using Vroumed.FSDumb.Extensions;
 using Vroumed.FSDumb.Hardware.Representations.Modules;
+using Vroumed.FSDumb.Managers;
 
 namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 {
@@ -13,10 +15,8 @@ namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 
         public Buzzer()
         {
-            Configuration.SetPinFunction(Pin, DeviceFunction.PWM3);
+            Configuration.SetPinFunction(Pin, DeviceFunction.PWM1);
             Channel = PwmChannel.CreateFromPin(Pin);
-
-            this.Schedule(Ping);
         }
 
         public void Start()
@@ -37,7 +37,7 @@ namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 
         public void Ping()
         {
-            var seq = Context.StartSequence()
+            var seq = Context.StartSequence(ExecuteType.Threaded)
                 .Schedule(() =>
                 {
                     Channel.Frequency = 400;
