@@ -1,17 +1,35 @@
 ﻿using System;
+using System.Collections;
 
 namespace Vroumed.FSDumb.Extensions
 {
     public static class Extensions
     {
-        public static void Schedule(this object _, Action action, ushort delay = 0) 
+        public static bool Any(this ArrayList list)
         {
-            Context.Instance.Scheduler.Schedule(action, delay);
+            return list.Count > 0;
         }
 
-        public static void OnUpdate(this object _, Action action)
+        public static bool Any(this ArrayList list, Func<object, bool> predicate)
         {
-            Context.Instance.OnUpdate += action;
+            return list.ToArray().Any(predicate);
+        }
+
+        public static bool Any<T>(this T[] list, Func<T, bool> predicate)
+        {
+            if (list == null)
+            {
+                return false;
+            }
+            foreach (var item in list)
+            {
+                if (predicate(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.Device.Gpio;
+using System.Drawing;
+using Vroumed.FSDumb.Dependencies;
 using Vroumed.FSDumb.Extensions;
 using Vroumed.FSDumb.Hardware.Controllers;
 using Vroumed.FSDumb.Hardware.Modules;
@@ -7,20 +9,32 @@ using Vroumed.FSDumb.Managers;
 
 namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 {
-    public class LEDs : ILighting
+    public class LEDs : ILighting, IDependencyCandidate
     {
-        public LED[] LedArray { get; set; } = new LED[12];
+        [Resolved]
+        private Scheduler Scheduler { get; set; }
+        
+        [Resolved]
+        private Context Context { get; set; }
+
+        private static byte lightCount = 12;
+        public LED[] LedArray { get; set; } = new LED[lightCount];
         private LedController _ledController;
         public Sequence CurrentSequence { get; private set; }
-        public byte LightCount => 12;
+        public byte LightCount => lightCount;
+        public static GpioPin Pin;
 
         public LEDs()
         {
-            _ledController = new LedController();
+            _ledController = new LedController(32, LightCount);
             for (byte i = 0; i < LightCount; i++)
             {
                 LedArray[i] = new LED(_ledController) { Index = i };
             }
+
+            GpioController contr = new GpioController();
+            Pin = contr.OpenPin(5, PinMode.Output);
+            Pin.Write(PinValue.Low);
         }
 
         public void Commit()
@@ -88,8 +102,9 @@ namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 
         public void StandardLights()
         {
+            Pin.Write(PinValue.High);
             CurrentSequence?.Stop();
-            this.Schedule(() =>
+            Scheduler.Schedule(() =>
             {
                 for (byte i = 0; i < LightCount; i++)
                 {

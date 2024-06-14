@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
+using Vroumed.FSDumb.Dependencies;
 
 namespace Vroumed.FSDumb.Managers
 {
-    public class Scheduler
+    public class Scheduler : IDependencyCandidate
     {
+        [Resolved]
+        private Context Context { get; set; }
+
         public class Task
         {
             public Action Action { get; }
@@ -21,7 +25,7 @@ namespace Vroumed.FSDumb.Managers
 
         public void ExecuteTasks()
         {
-            ulong now = Context.Instance.Clock;
+            ulong now = Context.Clock;
             foreach (Task task in _queue.ToArray())
             {
                 if (now > task.ExecutionTime)
@@ -39,7 +43,7 @@ namespace Vroumed.FSDumb.Managers
         /// <param name="delay"></param>
         public void Schedule(Action action, ushort delay = 0)
         {
-            Task task = new Task(action, Context.Instance.Clock + delay);
+            Task task = new Task(action, Context.Clock + delay);
             _queue.Add(task);
         }
     }

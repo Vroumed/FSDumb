@@ -7,7 +7,7 @@ namespace Vroumed.FSDumb.Hardware.Representations
         public ILighting Lighting { get; }
         public IMovement Movement { get; }
         public ISensors Sensors { get; }
-        public IVision? Vision { get; }
+        public IVision Vision { get; }
 
     }
 }

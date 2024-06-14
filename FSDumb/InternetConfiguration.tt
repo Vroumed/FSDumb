@@ -9,5 +9,6 @@ namespace Vroumed.FSDumb
     {
         public static string WifiSSID { get; } = "I Have A Big Engine";
         public static string Password { get; } = "LMAO no";
+        public static string RoverKey { get; } = "potato";
     }
 }

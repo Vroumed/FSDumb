@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading;
+using Vroumed.FSDumb.Dependencies;
 
 namespace Vroumed.FSDumb.Managers
 {
@@ -10,8 +11,11 @@ namespace Vroumed.FSDumb.Managers
         Scheduled,
         Threaded,
     }
-    public class Sequence
+    public class Sequence : IDependencyCandidate
     {
+        [Resolved]
+        private Scheduler Scheduler { get; set; }
+
         public ExecuteType ExecuteType { get; }
         private bool _running = false;
         private Thread _thread = null;
@@ -88,7 +92,7 @@ namespace Vroumed.FSDumb.Managers
                 case ExecuteType.Scheduled:
                     foreach (SequenceTask task in _sequence)
                     {
-                        Context.Instance.Scheduler.Schedule(() =>
+                        Scheduler.Schedule(() =>
                         {
                             if (_running)
                                 task.Action.Invoke();

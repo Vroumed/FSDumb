@@ -2,14 +2,19 @@
 using System.Device.Pwm;
 using System.Drawing;
 using System.Threading;
+using Vroumed.FSDumb.Dependencies;
 using Vroumed.FSDumb.Extensions;
 using Vroumed.FSDumb.Hardware.Representations.Modules;
 using Vroumed.FSDumb.Managers;
 
 namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 {
-    public class Buzzer : IBuzzer
+    public class Buzzer : IBuzzer, IDependencyCandidate
     {
+
+        [Resolved]
+        private Context Context { get; set; }
+
         public PwmChannel Channel { get; private set; }
         public int Pin { get; set; } = 2;
 

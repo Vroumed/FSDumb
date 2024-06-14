@@ -8,11 +8,11 @@ namespace Vroumed.FSDumb.Hardware.Controllers
     {
         private Ws28xx _strip;
 
-        public byte Pin { get; } = 32;
+        public byte Pin { get; }
 
-        public LedController()
+        public LedController(byte pin, byte ledCount)
         {
-            _strip = new Ws2812c(Pin, 12);
+            _strip = new Ws2812c(Pin = pin, ledCount);
         }
 
         public void SetColor(LED led, Color color)

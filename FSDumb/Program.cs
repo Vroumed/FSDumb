@@ -14,10 +14,7 @@ namespace Vroumed.FSDumb
     {
         public static void Main()
         {
-            Context.StartContext();
             
-
-            Context.Instance.StartMainLoop();
         }
     }
 }
