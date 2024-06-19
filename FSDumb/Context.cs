@@ -6,7 +6,8 @@ using nanoFramework.Hardware.Esp32;
 using nanoFramework.Networking;
 using nanoFramework.Runtime.Native;
 using Vroumed.FSDumb.Dependencies;
-using Vroumed.FSDumb.Hardware.Platforms.Freenove;
+using Vroumed.FSDumb.Hardware.Platforms.AWD;
+using Vroumed.FSDumb.Hardware.Platforms.RWD;
 using Vroumed.FSDumb.Hardware.Representations;
 using Vroumed.FSDumb.Managers;
 using Vroumed.FSDumb.Online;
@@ -32,9 +33,15 @@ namespace Vroumed.FSDumb
         {
             DependencyInjector.Cache(this);
             DependencyInjector.Cache(Scheduler);
-            HardwareAccessor = DependencyInjector.Resolve<FreenoveHardware>();
+            HardwareAccessor = RoverConfiguration.HardwareType switch
+            {
+                RoverConfiguration.Hardware.AWD => DependencyInjector.Resolve<AWDHardwareAccessor>(),
+                RoverConfiguration.Hardware.RWD => DependencyInjector.Resolve<RWDHardwareAccessor>(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            Scheduler.Schedule(HardwareAccessor.Buzzer.Ping);
             DependencyInjector.CacheAs(HardwareAccessor);
-            HardwareAccessor.Lighting.BusyLights();
+            HardwareAccessor.Lighting.StandardLights();
             Connector = DependencyInjector.Resolve<Connector>();
         }
 
@@ -52,7 +59,7 @@ namespace Vroumed.FSDumb
             }
 
 
-            //StartSequence(ExecuteType.Threaded).Schedule(Connector.Run).Execute();
+            StartSequence(ExecuteType.Threaded).Schedule(Connector.Run).Execute();
 
             while (true)
             {

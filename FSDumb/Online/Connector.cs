@@ -28,8 +28,13 @@ namespace Vroumed.FSDumb.Online
 
         public void Run()
         {
+            HardwareAccessor.Lighting.ConnectingServer();
             if (!InitializeInternet())
+            {
+                HardwareAccessor.Lighting.ErrorServer();
                 return;
+            }
+                
 
             HttpServer server = new HttpServer();
             server.ThreadedStart();
@@ -39,7 +44,7 @@ namespace Vroumed.FSDumb.Online
         public bool InitializeInternet()
         {
             CancellationTokenSource cs = new(10000);
-            IsOnline = WifiNetworkHelper.ScanAndConnectDhcp(InternetConfiguration.WifiSSID, InternetConfiguration.Password, token: cs.Token);
+            IsOnline = WifiNetworkHelper.ScanAndConnectDhcp(RoverConfiguration.WifiSSID, RoverConfiguration.Password, token: cs.Token);
             if (!IsOnline)
             {
                 Debug.WriteLine($"Can't connect to the network, error: {WifiNetworkHelper.Status}");
@@ -76,7 +81,7 @@ namespace Vroumed.FSDumb.Online
             client.BaseAddress = new(BaseAddress + BackendEndPoint.Address + "/status/fsdumb");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "Vroumed.FSDumb");
-            client.DefaultRequestHeaders.Add("Authorization", InternetConfiguration.RoverKey);
+            client.DefaultRequestHeaders.Add("Authorization", RoverConfiguration.RoverKey);
         }
     }
 }

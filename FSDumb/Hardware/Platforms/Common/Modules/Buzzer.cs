@@ -7,7 +7,7 @@ using Vroumed.FSDumb.Extensions;
 using Vroumed.FSDumb.Hardware.Representations.Modules;
 using Vroumed.FSDumb.Managers;
 
-namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
+namespace Vroumed.FSDumb.Hardware.Platforms.Common.Modules
 {
     public class Buzzer : IBuzzer, IDependencyCandidate
     {

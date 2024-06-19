@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Device.Pwm;
-using Iot.Device.Pwm;
 using Vroumed.FSDumb.Hardware.Controllers;
+using Vroumed.FSDumb.lib;
 
 namespace Vroumed.FSDumb.Hardware.Modules
 {

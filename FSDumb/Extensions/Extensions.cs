@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Drawing;
+using Vroumed.FSDumb.Hardware.Modules;
 
 namespace Vroumed.FSDumb.Extensions
 {
@@ -30,6 +32,15 @@ namespace Vroumed.FSDumb.Extensions
             }
 
             return false;
+        }
+
+
+        public static void Fill(this LED[] leds, Color color)
+        {
+            foreach (var led in leds)
+            {
+                led.SetColor(color);
+            }
         }
     }
 }

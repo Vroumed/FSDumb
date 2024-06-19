@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Device.I2c;
-using Iot.Device.Pwm;
 using nanoFramework.Hardware.Esp32;
 using Vroumed.FSDumb.lib;
 

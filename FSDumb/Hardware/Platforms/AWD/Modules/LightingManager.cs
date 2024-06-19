@@ -1,15 +1,14 @@
 ﻿using System.Device.Gpio;
 using System.Drawing;
 using Vroumed.FSDumb.Dependencies;
-using Vroumed.FSDumb.Extensions;
 using Vroumed.FSDumb.Hardware.Controllers;
 using Vroumed.FSDumb.Hardware.Modules;
 using Vroumed.FSDumb.Hardware.Representations.Modules;
 using Vroumed.FSDumb.Managers;
 
-namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
+namespace Vroumed.FSDumb.Hardware.Platforms.AWD.Modules
 {
-    public class LEDs : ILighting, IDependencyCandidate
+    public class LightingManager : ILighting, IDependencyCandidate
     {
         [Resolved]
         private Scheduler Scheduler { get; set; }
@@ -24,7 +23,7 @@ namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
         public byte LightCount => lightCount;
         public static GpioPin Pin;
 
-        public LEDs()
+        public LightingManager()
         {
             _ledController = new LedController(32, LightCount);
             for (byte i = 0; i < LightCount; i++)
@@ -63,7 +62,7 @@ namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
             }
         }
 
-        public void BusyLights()
+        public void ConnectingServer()
         {
             CurrentSequence?.Stop();
 
@@ -98,6 +97,31 @@ namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
 
                 return (byte)(res % modulo);
             }
+        }
+
+        public void ErrorServer()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ServerOnline()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ConnectingController()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ErrorController()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ControllerOnline()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void StandardLights()

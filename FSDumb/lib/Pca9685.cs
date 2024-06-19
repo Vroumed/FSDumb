@@ -3,7 +3,6 @@ using System.Device;
 using System.Device.I2c;
 using System.Device.Pwm;
 using System.Diagnostics;
-using Iot.Device.Pwm;
 using Vroumed.FSDumb.lib.Enums;
 
 namespace Vroumed.FSDumb.lib

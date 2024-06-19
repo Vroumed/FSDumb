@@ -20,32 +20,34 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="Dependencies\DependencyInjector.cs" />
-    <Compile Include="Hardware\Controllers\MotorController.cs" />
-    <Compile Include="InternetConfiguration.cs">
+    <Compile Include="RoverConfiguration.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>InternetConfiguration.tt</DependentUpon>
+      <DependentUpon>RoverConfiguration.tt</DependentUpon>
     </Compile>
+    <Compile Include="Dependencies\DependencyInjector.cs" />
+    <Compile Include="Hardware\Controllers\MotorController.cs" />
+    <Compile Include="Hardware\Platforms\RWD\RWDHardwareAccessor.cs" />
+    <Compile Include="Hardware\Platforms\RWD\Modules\LightingManager.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Hardware\Controllers\LedController.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\FreenoveHardware.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Managers\MovementManager.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Managers\SensorManager.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Managers\VisionManager.cs" />
+    <Compile Include="Hardware\Platforms\AWD\AWDHardwareAccessor.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Managers\MovementManager.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Managers\SensorManager.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Managers\VisionManager.cs" />
     <Compile Include="Hardware\Representations\IHardwareAccessor.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\Battery.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\Buzzer.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Modules\Battery.cs" />
+    <Compile Include="Hardware\Platforms\Common\Modules\Buzzer.cs" />
     <Compile Include="Hardware\Modules\LED.cs" />
     <Compile Include="Hardware\Modules\Servo.cs" />
     <Compile Include="Hardware\Modules\Wheel.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\LEDs.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\LightSensor.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\Servos.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\TrackSensor.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\UltrasonicSensor.cs" />
-    <Compile Include="Hardware\Platforms\Freenove\Modules\Wheels.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Modules\LightingManager.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Modules\LightSensor.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Modules\Servos.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Modules\TrackSensor.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Modules\UltrasonicSensor.cs" />
+    <Compile Include="Hardware\Platforms\AWD\Modules\Wheels.cs" />
     <Compile Include="Hardware\Representations\Modules\IBuzzer.cs" />
     <Compile Include="Hardware\Representations\Modules\ILighting.cs" />
     <Compile Include="Hardware\Representations\Modules\IMovement.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Online\HTTP\HttpServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CCSWE.nanoFramework.Math">
@@ -129,9 +132,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="InternetConfiguration.tt">
+    <None Include="RoverConfiguration.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>InternetConfiguration.cs</LastGenOutput>
+      <LastGenOutput>RoverConfiguration.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -139,10 +142,10 @@
     <ProjectReference Include="..\Common\Common.nfproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bindable\" />
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    <Folder Include="Bindable\" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>

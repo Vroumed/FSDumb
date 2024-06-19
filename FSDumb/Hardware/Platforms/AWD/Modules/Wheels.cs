@@ -1,8 +1,7 @@
-﻿
-using Vroumed.FSDumb.Hardware.Controllers;
+﻿using Vroumed.FSDumb.Hardware.Controllers;
 using Vroumed.FSDumb.Hardware.Modules;
 
-namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules
+namespace Vroumed.FSDumb.Hardware.Platforms.AWD.Modules
 {
     public class Wheels
     {

@@ -1,6 +1,6 @@
 ﻿using Vroumed.FSDumb.Hardware.Representations.Modules;
 
-namespace Vroumed.FSDumb.Hardware.Platforms.Freenove.Managers
+namespace Vroumed.FSDumb.Hardware.Platforms.AWD.Managers
 {
     internal class VisionManager : IVision
     {

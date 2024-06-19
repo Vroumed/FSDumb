@@ -3,9 +3,8 @@
 
 using System;
 using System.Device.Pwm;
-using Vroumed.FSDumb.lib;
 
-namespace Iot.Device.Pwm
+namespace Vroumed.FSDumb.lib
 {
     public class Pca9685PwmChannel
     {

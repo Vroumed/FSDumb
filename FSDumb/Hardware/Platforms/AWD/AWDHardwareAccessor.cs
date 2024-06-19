@@ -1,17 +1,17 @@
 ﻿using Vroumed.FSDumb.Dependencies;
-using Vroumed.FSDumb.Hardware.Modules;
-using Vroumed.FSDumb.Hardware.Platforms.Freenove.Managers;
-using Vroumed.FSDumb.Hardware.Platforms.Freenove.Modules;
+using Vroumed.FSDumb.Hardware.Platforms.AWD.Managers;
+using Vroumed.FSDumb.Hardware.Platforms.AWD.Modules;
+using Vroumed.FSDumb.Hardware.Platforms.Common.Modules;
 using Vroumed.FSDumb.Hardware.Representations;
 using Vroumed.FSDumb.Hardware.Representations.Modules;
 
-namespace Vroumed.FSDumb.Hardware.Platforms.Freenove
+namespace Vroumed.FSDumb.Hardware.Platforms.AWD
 {
-    public class FreenoveHardware : IHardwareAccessor, IDependencyCandidate
+    public class AWDHardwareAccessor : IHardwareAccessor, IDependencyCandidate
     {
-        public FreenoveHardware(DependencyInjector injector)
+        public AWDHardwareAccessor(DependencyInjector injector)
         {
-            Lighting = injector.Resolve<LEDs>();
+            Lighting = injector.Resolve<LightingManager>();
         }
 
         public IBuzzer Buzzer { get; } = new Buzzer();
